@@ -1,0 +1,25 @@
+{
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  },
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+
+    "rootDir": ".",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "paths": {
+      "@bot": ["bot"],
+      "@bot/modules/*": ["bot/modules/*"],
+      "@services/*": ["services/*"],
+      "@commands/*": ["commands/*"]
+    },
+
+    "sourceMap": true,
+    "removeComments": false,
+    "resolveJsonModule": true,
+    "experimentalDecorators": true,
+    "types": ["node"]
+  }
+}
