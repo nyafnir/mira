@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-docker",
+        "grimmer.vscode-back-forward-button",
+        "alefragnani.bookmarks",
+        "mhutchie.git-graph",
+        "dmodalek.markdown-preview-github-styles-custom",
+        "vscode-icons-team.vscode-icons",
+        "leonardssh.vscord"
+    ]
+}
