@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+
+  redis:
+    image: redis:alpine
+    container_name: mira-redis
+    volumes:
+      # - type: volume
+      #   source: redis_data
+      #   target: /var/lib/redis
+      - type: volume
+        source: redis_data
+        target: /data
+    entrypoint:
+      - "redis-server"
+      - "--databases 1"
+      # Сохранение кэша на диск: --save <секунд прошло> <кол-во изменений>
+      - "--save 900 1"
+      - "--save 300 10"
+      - "--save 60 10000"
+      - "--maxmemory ${REDIS_MAXMEM}"
+      - "--maxmemory-policy ${REDIS_POLICY}"
+    ports:
+      - ${REDIS_PORT}:6379
+    network_mode: bridge
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 3s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  redis_data:
+    external: false
