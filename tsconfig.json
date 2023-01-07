@@ -11,9 +11,10 @@
     "outDir": "dist",
     "paths": {
       "@bot": ["bot"],
-      "@bot/modules/*": ["bot/modules/*"],
+      "@modules/*": ["bot/modules/*"],
+      "@commands/*": ["bot/commands/*"],
       "@services/*": ["services/*"],
-      "@commands/*": ["commands/*"]
+      "@utils": ["utils"]
     },
 
     "sourceMap": true,
