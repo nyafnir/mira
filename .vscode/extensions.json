@@ -8,6 +8,7 @@
         "mhutchie.git-graph",
         "dmodalek.markdown-preview-github-styles-custom",
         "vscode-icons-team.vscode-icons",
-        "leonardssh.vscord"
+        "leonardssh.vscord",
+        "dunn.redis"
     ]
 }
