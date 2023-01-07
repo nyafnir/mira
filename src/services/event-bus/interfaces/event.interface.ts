@@ -2,5 +2,6 @@
 
 export interface IEvents {
   DbModelsAdded: []
+  DbConnected: []
   DbSynced: []
 }

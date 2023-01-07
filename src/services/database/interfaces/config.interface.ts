@@ -6,4 +6,5 @@ export interface DatabaseConfigInterface {
   DB_PASSWORD: string
 
   DB_SYNC_FORCE: boolean
+  DB_TIMEZONE: string
 }

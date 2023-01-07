@@ -10,38 +10,34 @@ export class DatabaseService {
   private readonly config: DatabaseConfigInterface =
     configService.validateConfig(DatabaseConfigSchema)
 
-  public readonly sequelize: Sequelize
+  public readonly sequelize = new Sequelize({
+    /** Обязан быть явно указанным здесь (требование от Sequelize) */
+    dialect: 'postgres',
+
+    host: this.config.DB_HOST,
+    port: this.config.DB_PORT,
+    database: this.config.DB_NAME,
+    username: this.config.DB_USER,
+    password: this.config.DB_PASSWORD,
+
+    logging: false,
+    sync: {
+      force: this.config.DB_SYNC_FORCE,
+    },
+
+    timezone: this.config.DB_TIMEZONE,
+    query: {
+      /** сразу возвращает результат из БД без дополнительной информации */
+      raw: true,
+    },
+    /** Изменение этого параметра потребует изменение кода работы с сущностями */
+    repositoryMode: true,
+  })
 
   constructor() {
-    this.sequelize = new Sequelize({
-      /** Обязан быть явно указанным здесь (требование от Sequelize) */
-      dialect: 'postgres',
-
-      host: this.config.DB_HOST,
-      port: this.config.DB_PORT,
-      database: this.config.DB_NAME,
-      username: this.config.DB_USER,
-      password: this.config.DB_PASSWORD,
-
-      logging: false,
-
-      sync: {
-        force: this.config.DB_SYNC_FORCE,
-      },
-
-      /** Изменение этого параметра потребует изменение кода работы с сущностями */
-      repositoryMode: true,
-    })
-
-    /** Подключение и синронизация после того как модели будут добавлены */
-    eventBus.subscribe(
-      'DbModelsAdded',
-      async () => {
-        await this.connect.bind(this)()
-        await this.sync.bind(this)()
-      },
-      true,
-    )
+    /** Подключение и синронизация после того как все модели будут добавлены */
+    eventBus.subscribe('DbModelsAdded', this.connect.bind(this), true)
+    eventBus.subscribe('DbConnected', this.sync.bind(this), true)
   }
 
   private async connect() {
@@ -53,6 +49,8 @@ export class DatabaseService {
       this.constructor.name,
       `Соединение с базой данных установлено! ✅`,
     )
+
+    eventBus.publish('DbConnected')
   }
 
   private async sync() {

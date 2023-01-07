@@ -8,4 +8,5 @@ export const DatabaseConfigSchema = Joi.object({
   DB_PASSWORD: Joi.string().default('mira'),
 
   DB_SYNC_FORCE: Joi.boolean().default(false),
+  DB_TIMEZONE: Joi.string().default('+04:00'),
 })
