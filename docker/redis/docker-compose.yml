@@ -14,7 +14,7 @@ services:
         target: /data
     entrypoint:
       - "redis-server"
-      - "--databases 1"
+      - "--databases ${REDIS_DATABASES}"
       # Сохранение кэша на диск: --save <секунд прошло> <кол-во изменений>
       - "--save 900 1"
       - "--save 300 10"
