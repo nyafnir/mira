@@ -5,7 +5,8 @@ node_modules/
 dist/
 
 # Секреты
-.env
+.env*
+!.env.example
 
 # используется yarn, поэтому игнорим npm 
 package-lock.json
